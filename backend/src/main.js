@@ -16,6 +16,12 @@ app.use(logRequests);                           // Log each request (defined in 
 // Import controllers
 const userController = require('./controllers/userController');
 
+// NEW: Import authentication routes
+const authRoutes = require('./routes/auth');
+
+// NEW: Mount authentication routes so that endpoints like /api/register and /api/login are available
+app.use('/api', authRoutes);
+
 // Routes setup (connecting routes to controller methods)
 app.get('/api/users', userController.getUsers);  // Example route: GET /api/users
 
@@ -24,3 +30,4 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Backend server is running on port ${PORT}`);
 });
+
