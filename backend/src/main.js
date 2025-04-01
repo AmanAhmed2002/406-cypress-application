@@ -1,4 +1,3 @@
-// backend/src/main.js
 require('dotenv').config();                     // Load .env variables into process.env
 
 const express = require('express');
@@ -13,21 +12,17 @@ app.use(express.json());                        // Parse JSON request bodies
 const logRequests = require('./middleware/logger');
 app.use(logRequests);                           // Log each request (defined in middleware/logger.js)
 
-// Import controllers
-const userController = require('./controllers/userController');
-
 // NEW: Import authentication routes
 const authRoutes = require('./routes/auth');
 
 // NEW: Mount authentication routes so that endpoints like /api/register and /api/login are available
 app.use('/api', authRoutes);
 
-// Routes setup (connecting routes to controller methods)
-app.get('/api/users', userController.getUsers);  // Example route: GET /api/users
+// Since there is no userController.js, remove or comment out the following line if not used:
+// app.get('/api/users', userController.getUsers);  // Example route: GET /api/users
 
 // Start the server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Backend server is running on port ${PORT}`);
 });
-

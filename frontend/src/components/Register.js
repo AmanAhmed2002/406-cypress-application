@@ -5,6 +5,10 @@ import { useNavigate } from 'react-router-dom';
 function Register() {
   const [form, setForm] = useState({
     email: '',
+    full_name: '',
+    phone_number: '',
+    age: '',
+    username: '',
     password: '',
     confirmPassword: '',
     role: 'citizen',
@@ -23,9 +27,14 @@ function Register() {
       return;
     }
     try {
-      await axios.post('/api/register', {
+      // Adjust the URL as needed; if using a proxy, you can use a relative URL
+      await axios.post('http://localhost:5000/api/register', {
         email: form.email,
         password: form.password,
+        full_name: form.full_name,
+        phone_number: form.phone_number,
+        age: form.age,
+        username: form.username,
         role: form.role,
       });
       navigate('/login');
@@ -44,6 +53,38 @@ function Register() {
           name="email"
           placeholder="Email"
           value={form.email}
+          onChange={handleChange}
+          required 
+        />
+        <input 
+          type="text"
+          name="full_name"
+          placeholder="Full Name"
+          value={form.full_name}
+          onChange={handleChange}
+          required 
+        />
+        <input 
+          type="text"
+          name="phone_number"
+          placeholder="Phone Number"
+          value={form.phone_number}
+          onChange={handleChange}
+          required 
+        />
+        <input 
+          type="text"
+          name="age"
+          placeholder="Age"
+          value={form.age}
+          onChange={handleChange}
+          required 
+        />
+        <input 
+          type="text"
+          name="username"
+          placeholder="Username"
+          value={form.username}
           onChange={handleChange}
           required 
         />
@@ -74,4 +115,3 @@ function Register() {
 }
 
 export default Register;
-
