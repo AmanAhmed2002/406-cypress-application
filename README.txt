@@ -82,14 +82,13 @@ C. Frontend Setup
       cd ../frontend
       npm install
 
-   2. Create a .env file in the frontend directory:
+   2. Install necessary dependencies:
+
+      cd frontend
       
-      In Create React App, environment variables must be prefixed with REACT_APP_.
-      Create a file named .env with contents similar to:
+      npm install react-router-dom
 
-         REACT_APP_API_URL=http://localhost:5000
-
-      Adjust the API URL if your backend runs on a different host or port.
+      npm install axios
 
 4. Running the Application
 --------------------------
