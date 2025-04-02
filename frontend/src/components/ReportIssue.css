@@ -1,0 +1,53 @@
+.report-issue-container {
+  padding: 2rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.report-issue-container h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.report-issue-container label {
+  display: block;
+  margin-bottom: 1rem;
+  font-weight: bold;
+}
+
+.report-issue-container input[type="text"],
+.report-issue-container select,
+.report-issue-container textarea {
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.report-issue-container textarea {
+  height: 100px;
+  resize: vertical;
+}
+
+.report-issue-container .message {
+  text-align: center;
+  margin-bottom: 1rem;
+  color: green;
+}
+
+.report-issue-container button {
+  display: block;
+  width: 100%;
+  padding: 0.75rem;
+  background-color: #ff9800;
+  border: none;
+  border-radius: 4px;
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.report-issue-container button:disabled {
+  background-color: #ccc;
+}

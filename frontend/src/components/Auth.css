@@ -1,0 +1,68 @@
+/* Container for the auth pages (Login & Register) */
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: url('https://source.unsplash.com/1600x900/?toronto,map') no-repeat center center/cover;
+}
+
+/* Card style for form */
+.auth-card {
+  background-color: rgba(255, 255, 255, 0.95);
+  padding: 2rem;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+/* Heading style */
+.auth-card h2 {
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+/* Form layout */
+.auth-form {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Input and select styling */
+.auth-form input,
+.auth-form select {
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Button styling */
+.auth-button {
+  background-color: #ff9800;
+  color: #fff;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.auth-button:hover {
+  background-color: #e68900;
+}
+
+/* Error message styling */
+.error-message {
+  color: red;
+  margin-bottom: 1rem;
+}
+
+/* Link styling */
+.auth-link {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+}

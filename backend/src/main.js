@@ -1,25 +1,25 @@
-require('dotenv').config();                     // Load .env variables into process.env
+require('dotenv').config();  // Load .env variables
 
 const express = require('express');
 const cors = require('cors');
 const app = express();
 
 // Middleware setup
-app.use(cors());                                // Enable CORS for all origins (development convenience)
-app.use(express.json());                        // Parse JSON request bodies
+app.use(cors());
+app.use(express.json());
 
-// Example of custom middleware (logging)
+// Custom middleware (logging)
 const logRequests = require('./middleware/logger');
-app.use(logRequests);                           // Log each request (defined in middleware/logger.js)
+app.use(logRequests);
 
-// NEW: Import authentication routes
+// Import routes
 const authRoutes = require('./routes/auth');
+const issuesRoutes = require('./routes/issues');
 
-// NEW: Mount authentication routes so that endpoints like /api/register and /api/login are available
 app.use('/api', authRoutes);
+app.use('/api/issues', issuesRoutes);
 
-// Since there is no userController.js, remove or comment out the following line if not used:
-// app.get('/api/users', userController.getUsers);  // Example route: GET /api/users
+// (Remove any unused routes if necessary)
 
 // Start the server
 const PORT = process.env.PORT || 5000;

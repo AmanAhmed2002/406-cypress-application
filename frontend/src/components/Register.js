@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import './Auth.css';
 
 function Register() {
   const [form, setForm] = useState({
@@ -27,7 +28,6 @@ function Register() {
       return;
     }
     try {
-      // Adjust the URL as needed; if using a proxy, you can use a relative URL
       await axios.post('http://localhost:5000/api/register', {
         email: form.email,
         password: form.password,
@@ -44,72 +44,74 @@ function Register() {
   };
 
   return (
-    <div>
-      <h2>Register</h2>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      <form onSubmit={handleSubmit}>
-        <input 
-          type="email"
-          name="email"
-          placeholder="Email"
-          value={form.email}
-          onChange={handleChange}
-          required 
-        />
-        <input 
-          type="text"
-          name="full_name"
-          placeholder="Full Name"
-          value={form.full_name}
-          onChange={handleChange}
-          required 
-        />
-        <input 
-          type="text"
-          name="phone_number"
-          placeholder="Phone Number"
-          value={form.phone_number}
-          onChange={handleChange}
-          required 
-        />
-        <input 
-          type="text"
-          name="age"
-          placeholder="Age"
-          value={form.age}
-          onChange={handleChange}
-          required 
-        />
-        <input 
-          type="text"
-          name="username"
-          placeholder="Username"
-          value={form.username}
-          onChange={handleChange}
-          required 
-        />
-        <input 
-          type="password"
-          name="password"
-          placeholder="Password"
-          value={form.password}
-          onChange={handleChange}
-          required 
-        />
-        <input 
-          type="password"
-          name="confirmPassword"
-          placeholder="Confirm Password"
-          value={form.confirmPassword}
-          onChange={handleChange}
-          required 
-        />
-        <select name="role" value={form.role} onChange={handleChange}>
-          <option value="citizen">Citizen</option>
-          <option value="city_staff">City Staff</option>
-        </select>
-        <button type="submit">Register</button>
-      </form>
+    <div className="auth-container">
+      <div className="auth-card">
+        <h2>Register</h2>
+        {error && <p className="error-message">{error}</p>}
+        <form onSubmit={handleSubmit} className="auth-form">
+          <input 
+            type="email"
+            name="email"
+            placeholder="Email"
+            value={form.email}
+            onChange={handleChange}
+            required 
+          />
+          <input 
+            type="text"
+            name="full_name"
+            placeholder="Full Name"
+            value={form.full_name}
+            onChange={handleChange}
+            required 
+          />
+          <input 
+            type="text"
+            name="phone_number"
+            placeholder="Phone Number"
+            value={form.phone_number}
+            onChange={handleChange}
+            required 
+          />
+          <input 
+            type="text"
+            name="age"
+            placeholder="Age"
+            value={form.age}
+            onChange={handleChange}
+            required 
+          />
+          <input 
+            type="text"
+            name="username"
+            placeholder="Username"
+            value={form.username}
+            onChange={handleChange}
+            required 
+          />
+          <input 
+            type="password"
+            name="password"
+            placeholder="Password"
+            value={form.password}
+            onChange={handleChange}
+            required 
+          />
+          <input 
+            type="password"
+            name="confirmPassword"
+            placeholder="Confirm Password"
+            value={form.confirmPassword}
+            onChange={handleChange}
+            required 
+          />
+          <select name="role" value={form.role} onChange={handleChange}>
+            <option value="citizen">Citizen</option>
+            <option value="city_staff">City Staff</option>
+          </select>
+          <button type="submit" className="auth-button">Register</button>
+        </form>
+      </div>
     </div>
   );
 }

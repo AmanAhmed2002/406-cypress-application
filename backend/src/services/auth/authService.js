@@ -45,6 +45,9 @@ async function loginUser({ email, password }) {
     throw new Error('No session or user returned.');
   }
 
+  // Debug: Log the session user data
+  console.log("Session user data:", session.user);
+
   // Retrieve the user's role from the profiles table.
   const { data: profile, error: profileError } = await supabase
     .from('profiles')
@@ -52,12 +55,12 @@ async function loginUser({ email, password }) {
     .eq('id', session.user.id)
     .single();
 
-  // If no profile is found, default to 'citizen' for testing.
   const userRole = (profileError || !profile) ? 'citizen' : profile.role;
 
   return {
     token: session.access_token,
     role: userRole,
+    user_id: session.user.id,  // Added user_id to return
   };
 }
 
