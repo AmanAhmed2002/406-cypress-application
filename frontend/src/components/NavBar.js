@@ -11,6 +11,7 @@ function NavBar() {
       <div className="navbar-links">
         <Link to="/dashboard">Dashboard</Link>
         <Link to="/report-issue">Report Issue</Link>
+        <Link to="/map">Map</Link>
       </div>
     </nav>
   );

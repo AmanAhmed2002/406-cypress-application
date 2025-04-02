@@ -6,6 +6,7 @@ import Register from './components/Register';
 import Login from './components/Login';
 import Dashboard from './components/Dashboard';
 import ReportIssue from './components/ReportIssue';
+import MapPage from './components/MapPage';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/report-issue" element={<ReportIssue />} />
+        <Route path="/map" element={<MapPage />} />
       </Routes>
     </Router>
   );
