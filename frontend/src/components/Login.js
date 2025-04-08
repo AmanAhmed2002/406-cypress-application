@@ -23,6 +23,7 @@ function Login() {
       // Save token, role, and user_id to localStorage for later use
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('role', response.data.role);
+      localStorage.setItem('userRole', response.data.role);
       localStorage.setItem('user_id', response.data.user_id);
 
       // Navigate to the Report Issue page after login
@@ -65,3 +66,4 @@ function Login() {
 }
 
 export default Login;
+

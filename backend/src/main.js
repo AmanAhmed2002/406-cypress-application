@@ -19,10 +19,21 @@ const issuesRoutes = require('./routes/issues');
 app.use('/api', authRoutes);
 app.use('/api/issues', issuesRoutes);
 
-// (Remove any unused routes if necessary)
+// Additional endpoints from issuesController for new ticket features
+const issuesController = require('./controllers/issues/issuesController');
+
+// GET /api/issues/mine - Retrieves issues for the logged-in citizen
+app.get('/api/issues/mine', issuesController.getMyReports);
+
+// PUT /api/issues/:id - Allows city staff to update an issue (status, feedback, assigned_staff)
+app.put('/api/issues/:id', issuesController.updateIssue);
+
+// GET /api/issues/dashboard - City staff dashboard to view/filter issues
+app.get('/api/issues/dashboard', issuesController.getIssues);
 
 // Start the server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Backend server is running on port ${PORT}`);
 });
+

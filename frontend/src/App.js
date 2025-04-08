@@ -7,6 +7,8 @@ import Login from './components/Login';
 import Dashboard from './components/Dashboard';
 import ReportIssue from './components/ReportIssue';
 import MapPage from './components/MapPage';
+import MyReports from './components/MyReports';
+import StaffDashboard from './components/StaffDashboard';
 
 function App() {
   return (
@@ -18,9 +20,12 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/report-issue" element={<ReportIssue />} />
         <Route path="/map" element={<MapPage />} />
+        <Route path="/my-reports" element={<MyReports />} />
+        <Route path="/dashboard/issues" element={<StaffDashboard />} />
       </Routes>
     </Router>
   );
 }
 
 export default App;
+
