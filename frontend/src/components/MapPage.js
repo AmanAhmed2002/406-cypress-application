@@ -1,23 +1,66 @@
-import React from 'react';
-import NavBar from './NavBar';
+import React, { useState, useEffect } from 'react';
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import L from 'leaflet';
+import 'leaflet/dist/leaflet.css';
 import './MapPage.css';
 
 function MapPage() {
+  const [issues, setIssues] = useState([]); // State to store fetched issues
+
+  useEffect(() => {
+    // Fetch the issues from the backend
+    const fetchIssues = async () => {
+      try {
+        const response = await fetch('http://localhost:5000/api/issues');  // Adjust this URL if needed
+        const data = await response.json();
+        
+        if (response.ok) {
+          setIssues(data);  // Set the issues in the state
+        } else {
+          console.error('Error fetching issues:', data.message || 'Unknown error');
+        }
+      } catch (error) {
+        console.error('Error fetching data from backend:', error);
+      }
+    };
+
+    fetchIssues();
+  }, []);
+
   return (
     <div>
-      <NavBar />
-      <div className="map-container">
-        <iframe 
-          title="Toronto Map"
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2886.555254150187!2d-79.38720768450314!3d43.653908979121424!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x882b34d2c7f9b0fd%3A0x6a9f8c78d1241f8f!2sToronto%2C%20ON%2C%20Canada!5e0!3m2!1sen!2sus!4v1683031234567"
-          width="100%"
-          height="600"
-          style={{ border: 0 }}
-          allowFullScreen=""
-          loading="lazy"
-          referrerPolicy="no-referrer-when-downgrade"
-        ></iframe>
-      </div>
+      <h1>Map of Issues in Toronto</h1>
+      <MapContainer center={[43.7, -79.42]} zoom={12} style={{ height: "600px", width: "100%" }}>
+        <TileLayer
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        />
+        {/* Loop over the issues and add markers */}
+        {issues.map((issue) => {
+          const { id, latitude, longitude, issue_type, description } = issue;
+          
+          // Set up a custom icon for the markers (optional)
+          const markerIcon = new L.Icon({
+            iconUrl: 'https://upload.wikimedia.org/wikipedia/commons/a/a3/Green_dot.svg', // Change this icon URL as needed
+            iconSize: [20, 20],
+            iconAnchor: [10, 10],
+            popupAnchor: [0, -10],
+          });
+
+          return (
+            <Marker
+              key={id}
+              position={[latitude, longitude]}
+              icon={markerIcon}  // Use the custom marker icon
+            >
+              <Popup>
+                <strong>Issue Type:</strong> {issue_type} <br />
+                <strong>Description:</strong> {description}
+              </Popup>
+            </Marker>
+          );
+        })}
+      </MapContainer>
     </div>
   );
 }
