@@ -12,27 +12,6 @@ async function submitIssueService({ user_id, issue_type, description, image_url,
     longitude,
     status,
   });
-
-  // check if an issue has already been submitted with matching issue type and location
-  const { data: existingIssue, error: checkError} = await supabase
-    .from('issues')
-    .select('issue_type', 'address', 'latitude', 'longitude')
-    .eq('issue_type', issue_type)
-    .eq('address', address)
-    .eq('latitude', latitude)
-    .eq('longitude', longitude)
-    .single();
-
-  if (checkError) {
-    console.error("error checking for exiting issue:", checkError)
-    throw new Error(checkError.message);
-  }
-
-  // if attempting to submit a duplicate issue
-  if (existingIssue) {
-    console.log("issue has already been reported")
-    return {message: "Issue has already been reported"}
-  }
   
   const { data, error } = await supabase
     .from('issues')
