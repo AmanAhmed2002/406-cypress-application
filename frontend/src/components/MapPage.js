@@ -5,27 +5,62 @@ import 'leaflet/dist/leaflet.css';
 import './MapPage.css';
 
 function MapPage() {
-  const [issues, setIssues] = useState([]); // State to store fetched issues
+  const [issues, setIssues] = useState([]);
 
   useEffect(() => {
-    // Fetch the issues from the backend
     const fetchIssues = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/issues');  // Adjust this URL if needed
+        const API_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000';
+        const response = await fetch(`${API_URL}/api/issues`);
         const data = await response.json();
-        
+
         if (response.ok) {
-          setIssues(data);  // Set the issues in the state
+          setIssues(data);
         } else {
-          console.error('Error fetching issues:', data.message || 'Unknown error');
+          throw new Error('Response not OK');
         }
       } catch (error) {
-        console.error('Error fetching data from backend:', error);
+        console.error('Backend fetch failed. Using dummy marker instead:', error);
+
+        const dummyData = [
+          {
+            id: 1,
+            latitude: 43.6532,
+            longitude: -79.3832,
+            issue_type: "Pothole",
+            description: "Pothole in downtown Toronto!",
+            status: "in progress"
+          },
+          {
+          
+            id: 2,
+            latitude: 43.6561,
+            longitude: -79.3802,
+            issue_type: "Streetlight Outage",
+            description: "streetlight is out of service, be careful!",
+            status: "submitted"
+          }
+        ];
+
+        setIssues(dummyData);
       }
     };
 
     fetchIssues();
   }, []);
+
+  const getMarkerColor = (status) => {
+    switch (status?.toLowerCase()) {
+      case 'submitted':
+        return 'https://maps.google.com/mapfiles/ms/icons/red-dot.png';
+      case 'in progress':
+        return 'https://maps.google.com/mapfiles/ms/icons/orange-dot.png';
+      case 'completed':
+        return 'https://maps.google.com/mapfiles/ms/icons/green-dot.png';
+      default:
+        return 'https://maps.google.com/mapfiles/ms/icons/blue-dot.png';
+    }
+  };
 
   return (
     <div>
@@ -35,27 +70,29 @@ function MapPage() {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         />
-        {/* Loop over the issues and add markers */}
+
         {issues.map((issue) => {
-          const { id, latitude, longitude, issue_type, description } = issue;
-          
-          // Set up a custom icon for the markers (optional)
+          const { id, latitude, longitude, issue_type, description, status } = issue;
+
+          if (latitude == null || longitude == null) return null;
+
           const markerIcon = new L.Icon({
-            iconUrl: 'https://upload.wikimedia.org/wikipedia/commons/a/a3/Green_dot.svg', // Change this icon URL as needed
-            iconSize: [20, 20],
-            iconAnchor: [10, 10],
-            popupAnchor: [0, -10],
+            iconUrl: getMarkerColor(status),
+            iconSize: [32, 32],
+            iconAnchor: [16, 32],
+            popupAnchor: [0, -32],
           });
 
           return (
             <Marker
               key={id}
               position={[latitude, longitude]}
-              icon={markerIcon}  // Use the custom marker icon
+              icon={markerIcon}
             >
               <Popup>
                 <strong>Issue Type:</strong> {issue_type} <br />
-                <strong>Description:</strong> {description}
+                <strong>Description:</strong> {description} <br />
+                <strong>Status:</strong> {status}
               </Popup>
             </Marker>
           );
