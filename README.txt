@@ -66,16 +66,6 @@ B. Backend Setup
       cd backend
       npm install
 
-   2. Create a .env file in the backend directory:
-      
-      Create a file named .env with contents similar to:
-
-         PORT=5000
-         SUPABASE_URL=https://your-project.supabase.co
-         SUPABASE_KEY=your-supabase-key
-
-      Replace the placeholder values with your actual Supabase project URL and API key.
-
 C. Frontend Setup
    1. Navigate to the frontend folder and install dependencies:
       
